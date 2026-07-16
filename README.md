@@ -1,48 +1,67 @@
-# airline-client
+# Airline Client
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is the frontend for an airline management system built with Vue 3, TypeScript, Vite, Vuetify, Pinia, and Vue Router.
 
-## Recommended IDE Setup
+## Overview
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The client provides a dashboard-style interface for managing airline-related entities such as aircraft, aircraft models, and manufacturers. It uses a modular structure with dedicated stores, services, and reusable UI components.
 
-## Recommended Browser Setup
+## Features
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Aircraft management screens
+- Aircraft model management
+- Manufacturer management
+- Reusable dialog-based confirmation flows
+- Type-safe API integration with shared services
+- Modern UI built with Vuetify
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue 3
+- TypeScript
+- Vite
+- Vuetify
+- Pinia
+- Vue Router
+- Axios
 
-## Customize configuration
+## Prerequisites
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Node.js 22 or newer
+- Bun (recommended for local development)
 
-## Project Setup
+## Getting Started
+
+Install dependencies:
 
 ```sh
 bun install
 ```
 
-### Compile and Hot-Reload for Development
+Start the development server:
 
 ```sh
 bun dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Then open http://localhost:5173 in your browser.
 
-```sh
-bun run build
-```
+## Available Scripts
 
-### Lint with [ESLint](https://eslint.org/)
+- `bun dev` — start the Vite development server
+- `bun run build` — type-check and build the production bundle
+- `bun run type-check` — run Vue TypeScript checks
+- `bun run lint` — lint the project
+- `bun run format` — format the source files
 
-```sh
-bun lint
-```
+## Project Structure
+
+- `src/components` — shared UI components
+- `src/modules` — feature-based modules for aircraft and manufacturers
+- `src/plugins` — router, Vuetify, and dialog plugin setup
+- `src/shared` — shared API helpers and utilities
+- `src/stores` — Pinia stores
+
+## Notes
+
+The app expects the corresponding backend API to be available for data operations. API configuration can be adjusted in the shared API layer under `src/shared/api`.
