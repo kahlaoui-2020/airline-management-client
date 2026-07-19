@@ -9,8 +9,8 @@
       </v-card-title>
       <v-divider class="mb-4" />
       <v-card-text>
-        <v-alert v-if="st.errorMessage" type="error" variant="tonal" class="mb-4">
-          {{ st.errorMessage }}
+        <v-alert v-if="st.error" type="error" variant="tonal" class="mb-4">
+          {{ st.error }}
         </v-alert>
         <v-text-field v-model="form.name" label="Name" :rules="[rules.required]" />
         <v-text-field v-model="form.description" label="Description" />

@@ -9,8 +9,8 @@
       </v-card-title>
       <v-divider class="mb-4" />
       <v-card-text>
-        <v-alert v-if="errorMessage" type="error" variant="tonal" class="mb-4">
-          {{ errorMessage }}
+        <v-alert v-if="st.error" type="error" variant="tonal" class="mb-4">
+          {{ st.error }}
         </v-alert>
         <v-text-field v-model="form.name" label="Name" :rules="[rules.required]" />
         <v-autocomplete
@@ -35,10 +35,9 @@ import { DIALOG_DATA, DIALOG_REF, type DialogRef } from '@/plugins/dialog'
 
 import { inject, reactive, ref } from 'vue'
 import type { VForm } from 'vuetify/components'
-import { getErrorMessage } from '@/shared/api/api-error'
-import manufacturerService from '../api/manufacturer.service'
 import type { Manufacturer } from '../types'
 import type { ConfirmData } from '@/shared/types/api'
+import { useManufacturer } from '../store/manufacturer'
 
 const rules = {
   required: (v: unknown) => !!v,
@@ -48,17 +47,14 @@ const dialogRef = inject<DialogRef<boolean>>(DIALOG_REF)
 const valid = ref(false)
 const formRef = ref<VForm>()
 const form = reactive<Partial<Manufacturer>>({})
-const errorMessage = ref<string | null>(null)
+const st = useManufacturer()
 async function confirm() {
   const isValid = (await formRef.value?.validate())?.valid
   if (!isValid) return
 
-  errorMessage.value = null
-  try {
-    await manufacturerService.create(form)
+  const created = await st.createManufacturer(form)
+  if (created) {
     dialogRef?.close(true)
-  } catch (error) {
-    errorMessage.value = getErrorMessage(error)
   }
 }
 function reset() {

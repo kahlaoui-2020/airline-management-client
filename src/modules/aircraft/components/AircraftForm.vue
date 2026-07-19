@@ -9,8 +9,8 @@
       </v-card-title>
       <v-divider class="mb-4" />
       <v-card-text>
-        <v-alert v-if="errorMessage" type="error" variant="tonal" class="mb-4">
-          {{ errorMessage }}
+        <v-alert v-if="st.error" type="error" variant="tonal" class="mb-4">
+          {{ st.error }}
         </v-alert>
         <v-autocomplete
           v-model="form.airlineID"
@@ -56,10 +56,9 @@ import { DIALOG_DATA, DIALOG_REF, type DialogRef } from '@/plugins/dialog'
 
 import { inject, reactive, ref } from 'vue'
 import type { VForm } from 'vuetify/components'
-import { getErrorMessage } from '@/shared/api/api-error'
-import aircraftService from '../api/aircraft.service'
 import type { Aircraft } from '../types'
 import type { ConfirmData } from '@/shared/types/api'
+import { useAircraft } from '../store/aircraft'
 
 const rules = {
   required: (v: unknown) => !!v,
@@ -69,16 +68,13 @@ const dialogRef = inject<DialogRef<boolean>>(DIALOG_REF)
 const valid = ref(false)
 const formRef = ref<VForm>()
 const form = reactive<Partial<Aircraft>>({})
-const errorMessage = ref<string | null>(null)
+const st = useAircraft()
 async function confirm() {
   const isValid = (await formRef.value?.validate())?.valid
   if (!isValid) return
-  errorMessage.value = null
-  try {
-    await aircraftService.create(form)
+  const created = await st.createAircraft(form)
+  if (created) {
     dialogRef?.close(true)
-  } catch (error) {
-    errorMessage.value = getErrorMessage(error)
   }
 }
 function reset() {

@@ -8,7 +8,7 @@ import type { AircraftModel } from '../types'
 export const useAircraftModel = defineStore('aircraftModel', () => {
   const models = ref<AircraftModel[]>([])
   const loading = ref(false)
-  const errorMessage = ref<string | null>(null)
+  const error = ref<string | null>(null)
   async function loadModels() {
     loading.value = true
     try {
@@ -22,13 +22,13 @@ export const useAircraftModel = defineStore('aircraftModel', () => {
   }
   async function createModel(data: Partial<AircraftModel>) {
     loading.value = true
-    errorMessage.value = null
+    error.value = null
     try {
       const response = await modelService.create(data)
       models.value.push(response.data)
       return response.data
-    } catch (error) {
-      errorMessage.value = getErrorMessage(error)
+    } catch (err) {
+      error.value = getErrorMessage(err)
       return null
     } finally {
       loading.value = false
@@ -48,7 +48,7 @@ export const useAircraftModel = defineStore('aircraftModel', () => {
   return {
     models,
     loading,
-    errorMessage,
+    error,
     loadModels,
     createModel,
     removeModel,
