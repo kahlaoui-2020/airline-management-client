@@ -7,7 +7,7 @@
         </span>
         <v-btn icon="mdi-close" variant="text" @click="close" />
       </v-card-title>
-      <v-divider class="mb-4" />
+      <v-divider />
       <v-card-text>
         <v-alert v-if="st.error" type="error" variant="tonal" class="mb-4">
           {{ st.error }}
@@ -22,7 +22,7 @@
           :rules="[rules.required]"
         />
       </v-card-text>
-      <v-divider class="mt-2" />
+      <v-divider />
       <v-card-actions class="justify-end">
         <v-btn color="error" @click="reset">Reset</v-btn>
         <v-btn type="submit" color="primary">Confirm</v-btn>
